@@ -1,0 +1,15 @@
+Accueil_index:
+    path: /
+    controller: App\Controller\AccueilController::index
+    
+filter_byfirstname:
+    path: /filter_byfirstname
+    controller: App\Controller\AccueilController::filter_byfirstname
+
+filter_byname:
+    path: /filter_byname
+    controller: App\Controller\AccueilController::filter_byname
+
+filter_bymail:
+    path: /filter_bymail
+    controller: App\Controller\AccueilController::filter_bymail

@@ -1,0 +1,96 @@
+{% extends "pages/base.html.twig" %}
+    {% block body %}
+        <div class="content">
+            <h1>Page d'Accueil</h1>
+
+            <input type="text" id="filter_name" placeholder="Filtrer par nom">
+            <input type="text" id="filter_firstname" placeholder="Filtrer par prénom">
+            <input type="text" id="filter_mail" placeholder="Filtrer par email">
+
+            <table id="datas">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody id="dataBody">
+                    {% for item in datas %}
+                        <tr>
+                            <td>{{ item.nom }}</td>
+                            <td>{{ item.prenom }}</td>
+                            <td>{{ item.email }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    <div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#filter_firstname').on( "input", function() {
+                var filterValue = $('#filter_firstname').val();
+                $.ajax({
+                    url: '{{ path("filter_byfirstname") }}',
+                    type: 'GET',
+                    data: { filter: filterValue },
+                    success: function(response) {
+                        var tbody = $('#dataBody');
+                        tbody.empty();
+                        response.forEach(function(item) {
+                            var row = '<tr>' +
+                                '<td>' + item.nom + '</td>' +
+                                '<td>' + item.prenom + '</td>' +
+                                '<td>' + item.email + '</td>' +
+                                '</tr>';
+                            tbody.append(row);
+                        });
+                    }
+                });
+            });
+
+            $('#filter_name').on( "input", function() {
+                var filterValue = $('#filter_name').val();
+                $.ajax({
+                    url: '{{ path("filter_byname") }}',
+                    type: 'GET',
+                    data: { filter: filterValue },
+                    success: function(response) {
+                        var tbody = $('#dataBody');
+                        tbody.empty();
+                        response.forEach(function(item) {
+                            var row = '<tr>' +
+                                '<td>' + item.nom + '</td>' +
+                                '<td>' + item.prenom + '</td>' +
+                                '<td>' + item.email + '</td>' +
+                                '</tr>';
+                            tbody.append(row);
+                        });
+                    }
+                });
+            });
+            
+            $('#filter_mail').on( "input", function() {
+                var filterValue = $('#filter_mail').val();
+                $.ajax({
+                    url: '{{ path("filter_bymail") }}',
+                    type: 'GET',
+                    data: { filter: filterValue },
+                    success: function(response) {
+                        var tbody = $('#dataBody');
+                        tbody.empty();
+                        response.forEach(function(item) {
+                            var row = '<tr>' +
+                                '<td>' + item.nom + '</td>' +
+                                '<td>' + item.prenom + '</td>' +
+                                '<td>' + item.email + '</td>' +
+                                '</tr>';
+                            tbody.append(row);
+                        });
+                    }
+                });
+            });
+        });
+    </script> 
+    {% endblock %}
